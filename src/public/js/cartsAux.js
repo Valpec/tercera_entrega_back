@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', async (event) => {
             event.preventDefault();
             let cid = button.dataset.cid
-
             let pid = button.dataset.pid;
 
             try {
@@ -14,6 +13,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         'Content-Type': 'application/json'
                     }
                 });
+                if(response){
+                    window.location.replace(`/carts/${cid}`);
+
+                }
 
             } catch (error) {
                 console.error('Error:', error.message);

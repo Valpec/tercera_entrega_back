@@ -35,7 +35,6 @@ const initializePassport = () => {
         }, async (accessToken, refreshToken, profile, done) => {
             console.log("Profile obtenido del usuario:");
             console.log(profile);
-            console.log('asd'+profile._json.email )
             
             try {
                 const user = await userModel.findOne({ email: profile._json.email });

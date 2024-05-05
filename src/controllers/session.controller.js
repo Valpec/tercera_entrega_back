@@ -10,7 +10,7 @@ const linkCart = async (user) => {
     if(!user.cart){
         let newCart = await cartService.createCart()
         user.cart = newCart
-      
+        await user.save()
         return newCart
     }
 }
@@ -47,6 +47,8 @@ const postSessionController = async (req, res) => {
 
         }
         let user = await userModel.findOne({ email: email });
+        console.log('el user que me trae mongo', user)
+
         if (!user) {
             console.warn(`No existe usuario con username ${email}`);
             return res.status(204).send({ error: "Not found", message: `No existe usuario con username ${email}` });
@@ -57,8 +59,7 @@ const postSessionController = async (req, res) => {
         }
       
         //le vinculo un cart al usuario
-        const newCart = await linkCart(user)
-
+        await linkCart(user)
         tokenUser = new UserDto(user)
         const access_token = generateJWToken(tokenUser);
 
@@ -78,7 +79,7 @@ const postSessionController = async (req, res) => {
 const getSessionLogoutController = (req, res) => {
 
     if (req.cookies['jwtCookieToken']) {
-        res.clearCookie('jwtCookieToken').send({ message: "Logout successful" });
+        res.clearCookie('jwtCookieToken').render('logout');
     } else {
         res.status(401).send({ error: "No JWT cookie found" });
     }

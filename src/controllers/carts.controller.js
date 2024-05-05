@@ -88,7 +88,6 @@ const viewCartController = async (req, res) => {
         let data = {cart, user}
 
         console.log(cart)
-        console.log('la data que se manda al cart', data)
         req.user ? res.render('cart', data) : res.send('Debe estar loguado para ver este contenido')
 
     } catch (error) {
@@ -123,7 +122,6 @@ const getPurchaseController = async(req,res) => {
                 notInStock.push(e)
             }
         };
-        console.log(sumProds)
         let newTicket = await ticketService.createTicket(sumProds, userEmail)
         let data = {newTicket: newTicket, notInStock: notInStock}
   

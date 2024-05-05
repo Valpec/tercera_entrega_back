@@ -60,7 +60,6 @@ export default class ProductService {
     updateProduct = async (prodId, product) => {
         try {
             let result = await productsModel.updateOne({ _id: prodId }, product)
-            console.log(result)
             return result
 
         } catch (error) {
