@@ -23,7 +23,7 @@ router.get('/products', passportCall('jwt'), viewProductsController)
 
 router.get('/products/:pid', passportCall('jwt'), viewProductDetController)
 
-router.get('/carts/:cid', passportCall('jwt'), viewCartController)
+router.get('/carts/:cid', passportCall('jwt'), authorization('user'), viewCartController)
 
 
 
@@ -44,14 +44,10 @@ router.get('/github/error', (req, res) => {
 })
 
 
-router.get(`/profile`, passportCall('jwt'), async (req, res) => {
-    if (req.user) {
+router.get(`/profile`, passportCall('jwt'), authorization('user'), async (req, res) => {
         res.render('profile', {
             user: req.user
         })
-    } else {
-        res.send(`Es necesario estar logueado para ver esta info`)
-    }
 
 })
 
