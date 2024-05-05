@@ -10,7 +10,7 @@ const linkCart = async (user) => {
     if(!user.cart){
         let newCart = await cartService.createCart()
         user.cart = newCart
-        // console.log(JSON.stringify(newCart))
+      
         return newCart
     }
 }

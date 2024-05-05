@@ -50,7 +50,7 @@ const initializePassport = () => {
                         age: 20,
                         email: profile._json.email,
                         password: '',
-                        cart: '65f6e85d9ee742a71efd9ff9',
+                        cart: '',
                         role: '',
                         loggedBy: 'GitHub'
                     }

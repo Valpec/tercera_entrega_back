@@ -25,6 +25,8 @@ router.get('/products/:pid', passportCall('jwt'), viewProductDetController)
 
 router.get('/carts/:cid', passportCall('jwt'), viewCartController)
 
+// router.get('/api/carts/:cid/purchase', passportCall('jwt'), createTicketController)
+
 
 router.get(`/api/sessions/register`, async (req, res) => {
     req.user ? res.send('Ya esta logueado') : res.render('register')

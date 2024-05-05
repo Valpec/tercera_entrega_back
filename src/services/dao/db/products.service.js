@@ -80,4 +80,21 @@ export default class ProductService {
         }
     }
 
+
+    updateProductStock = async (prodId, newStock) => {
+        try {
+            console.log(`newStock desde el updateProdStock service ? ${newStock}`)
+
+            let result = await productsModel.updateOne({ _id: prodId },
+                 {$set: {stock: newStock}})
+            console.log(result)
+            return result
+
+        } catch (error) {
+            console.error(`Error en la actualizacion del producto: ${error}`)
+            res.status(500)
+        }
+
+    }
+
 }

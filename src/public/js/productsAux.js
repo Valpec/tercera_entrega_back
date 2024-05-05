@@ -4,9 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     addToCartButtons.forEach(button => {
         button.addEventListener('click', async (event) => {
             event.preventDefault();
-            let cid = "65f6e85d9ee742a71efd9ff9"
+            let cid = button.dataset.cid;
             let pid = button.dataset.pid;
-
             try {
                 const response = await fetch(`/api/carts/${cid}/product/${pid}`, {
                     method: 'POST',

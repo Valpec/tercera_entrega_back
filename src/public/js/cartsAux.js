@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', async (event) => {
             event.preventDefault();
             let cid = button.dataset.cid
+
             let pid = button.dataset.pid;
 
             try {

@@ -1,6 +1,7 @@
 import { Router } from 'express';
+import { passportCall } from '../utils.js';
 
-import { postCartController, getCartIdController, postCartIdController, deleteCartProdIdController, deleteCartProdsController, putCartController, putCartQtyController} from '../controllers/carts.controller.js'
+import { postCartController, getCartIdController, postCartIdController, deleteCartProdIdController, deleteCartProdsController, putCartController, putCartQtyController, getPurchaseController} from '../controllers/carts.controller.js'
 
 const router = Router();
 
@@ -23,7 +24,9 @@ router.put('/:cid', putCartController)
 //PUT actualiza SOLO la cant de ejemplares del prod por cualquier cant pasada desde el req.body
 router.put('/:cid/product/:pid', putCartQtyController)
 
-// router.get(':cid/purchase', )
-// asociar al usuario primero!!!
+router.get('/:cid/purchase', passportCall('jwt'), getPurchaseController)
+// router.get('/:cid/purchase', getPurchaseController)
+
+
 
 export default router;

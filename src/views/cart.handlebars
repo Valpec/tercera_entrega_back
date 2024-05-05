@@ -9,6 +9,8 @@
 
     </ul>
 </nav>
+{{#if cart.products}}
+
 <div>
     <h3>Productos del cart: </h3>
     {{#each cart.products}}
@@ -22,6 +24,12 @@
     </div>
     {{/each}}
 
+{{else}}
+<h1>No hay productos en el carrito para mostrar</h1>
+{{/if}}
+
 </div>
+        <a href="/api/carts/{{user.cart}}/purchase"><button>Realizar compra </button></a>
+
 
 <script src="/js/cartsAux.js"></script>

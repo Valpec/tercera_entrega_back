@@ -10,18 +10,18 @@
 </nav>
 
 
-<h3>Detalle de: {{this.title}} </h3>
+<h3>Detalle de: {{prod.title}} </h3>
 <div class="itemList">
     <div class="item">
-        <h4>Id: {{this._id}}</h4>
-        <p>Title: {{this.title}}</p>
-        <p>Code: {{this.code}}</p>
-        <p>Price: ${{this.price}}</p>
-        <p>Stock: {{this.stock}}</p>
-        <p>Status: {{this.status}}</p>
-        <p>Category: {{this.category}}</p>
+        <h4>Id: {{prod._id}}</h4>
+        <p>Title: {{prod.title}}</p>
+        <p>Code: {{prod.code}}</p>
+        <p>Price: ${{prod.price}}</p>
+        <p>Stock: {{prod.stock}}</p>
+        <p>Status: {{prod.status}}</p>
+        <p>Category: {{prod.category}}</p>
 
-        <button id="addCart_{{this.id}}" class="addProdToCart" data-pid="{{this._id}} "> Agregar al Carrito </button>
+        <button id="addCart_{{prod._id}}" class="addProdToCart" data-pid="{{prod._id}}" data-cid="{{user.cart}}"> Agregar al Carrito </button>
 
     </div>
 </div>

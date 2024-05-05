@@ -86,8 +86,11 @@ const viewProductsController = async (req, res) => {
 const viewProductDetController = async (req, res) => {
     try {
         let pid = req.params.pid
+        let user = req.user
         let prod = await productService.getProductsById(pid)
-        req.user ? res.render('productsDetail', prod) : res.send('Debe estar loguado para ver este contenido')
+        let data = {user, prod}
+        console.log('data mandada al detail', data)
+        req.user ? res.render('productsDetail', data) : res.send('Debe estar loguado para ver este contenido')
 
     } catch (error) {
         console.error(`Error processing request: ${error}`)

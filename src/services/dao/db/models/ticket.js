@@ -22,10 +22,13 @@ const strTypeSchemaNonUniqueRequired = {
 const ticketsSchema = new mongoose.Schema({
     code: strTypeSchemeUniqueRequired,  //hacer ocn uuid
     purchase_datetime: strTypeSchemaNonUniqueRequired, //hacer logica con el new Date
-    amount: Number, // sumar el total de todos los productos
+    amount: {
+        type: Number,
+        required: true
+    }, // sumar el total de todos los productos
     purchaser: strTypeSchemaNonUniqueRequired   //asociarle el email de la persona
 })
 
-ticketsModel.plugin(mongoosePaginate);
+// ticketsSchema.plugin(mongoosePaginate);
 
 export const ticketsModel = mongoose.model(collectionName, ticketsSchema)

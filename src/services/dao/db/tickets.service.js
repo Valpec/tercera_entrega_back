@@ -6,7 +6,7 @@ export default class TicketService {
         console.log('Working tickets with db persistance in mongdob')
     }
 
-    createTicket = async (userEmail) => {
+    createTicket = async (sumCart, userEmail) => {
         try{
             let currentDate = new Date()
             let dateTime = currentDate.getDate() + "/"
@@ -17,14 +17,17 @@ export default class TicketService {
             + currentDate.getSeconds();
             let generatedCode = uuidv4()
 
-
-
             let newTicket = new ticketsModel({
-                generatedCode, dateTime, sumCart, userEmail
+                code: generatedCode, 
+                purchase_datetime: dateTime, 
+                amount: sumCart, 
+                purchaser: userEmail
             })
-            let result = await ticketsModel.create(newTicket)
 
-
+            await ticketsModel.create(newTicket)
+            let result = await ticketsModel.findOne({code: generatedCode}).lean()
+            console.log('el result desde el ticket servie', result)
+            return result
         }catch(error){
             console.error(`Error creando ticket ${error}`)
         }

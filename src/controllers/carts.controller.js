@@ -1,6 +1,6 @@
 
 // import { cartService } from '../services/dao/factory.js'
-import { cartService } from "../services/service.js";
+import { cartService, productService, ticketService } from "../services/service.js";
 
 const postCartController = async(req, res) => {
     try{
@@ -88,7 +88,7 @@ const viewCartController = async (req, res) => {
         let data = {cart, user}
 
         console.log(cart)
-        console.log(data)
+        console.log('la data que se manda al cart', data)
         req.user ? res.render('cart', data) : res.send('Debe estar loguado para ver este contenido')
 
     } catch (error) {
@@ -97,4 +97,42 @@ const viewCartController = async (req, res) => {
     }
 }
 
-export { postCartController, getCartIdController, postCartIdController, deleteCartProdIdController, deleteCartProdsController, putCartController, putCartQtyController, viewCartController}
+
+const getPurchaseController = async(req,res) => {
+    try{
+        let cid = req.params.cid
+        let userEmail = req.user.email
+       
+        let prodsInCart = await cartService.listCartProds(cid)
+        if(prodsInCart.products.length === 0){
+            console.warn(`No se puede concretar la compran, no existen productos en el carrito`);
+            return res.status(204).send({ error: "Not found", message: `No existen productos en el carrito` });
+        }
+        let inStock = []
+        let notInStock = []
+        let sumProds = 0
+
+        for (let e of prodsInCart.products) {
+            if(e.product.stock >= e.quantity){
+                inStock.push(e)
+                let newStock = e.product.stock - e.quantity
+                await productService.updateProductStock(e.product._id, newStock)
+                sumProds += e.quantity * e.product.price
+
+            }else{
+                notInStock.push(e)
+            }
+        };
+        console.log(sumProds)
+        let newTicket = await ticketService.createTicket(sumProds, userEmail)
+        let data = {newTicket: newTicket, notInStock: notInStock}
+  
+        res.render('purchase', data)
+
+    }catch(error){
+        console.error(`Error processing request: ${error}`)
+        res.status(500).send({ error: "500", message: "Error consultando el carrito" })
+    }
+}
+
+export { postCartController, getCartIdController, postCartIdController, deleteCartProdIdController, deleteCartProdsController, putCartController, putCartQtyController, viewCartController, getPurchaseController}

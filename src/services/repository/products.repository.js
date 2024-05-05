@@ -17,4 +17,7 @@ export default class ProductsRepository {
     getProductsById = (itemId) => {
         return this.dao.getProductsById(itemId);
     }
+    updateProductStock = (prodId, newStock) => {
+        return this.dao.updateProductStock(prodId, newStock);
+    }
 };
