@@ -13,6 +13,10 @@ import viewsRouter from "./routes/views.router.js";
 import cartsRouter from './routes/carts.router.js'
 import productsRouter from './routes/products.router.js'
 import sessionsRouter from './routes/session.router.js'
+import emailRouter from './routes/email.router.js';
+import smsRouter from './routes/sms.router.js';
+
+
 import cookieParser from 'cookie-parser';
 
 
@@ -39,6 +43,9 @@ app.use('/', viewsRouter)
 app.use('/api/carts', cartsRouter)
 app.use('/api/products', productsRouter)
 app.use('/api/sessions', sessionsRouter);
+app.use("/api/email", emailRouter);
+app.use("/api/sms", smsRouter);
+
 
 app.get("*", (req, res) => {
     res.status(400).send("Connot get that URL!!")

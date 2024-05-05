@@ -25,7 +25,7 @@ router.put('/:cid', putCartController)
 router.put('/:cid/product/:pid', putCartQtyController)
 
 router.get('/:cid/purchase', passportCall('jwt'), getPurchaseController)
-// router.get('/:cid/purchase', getPurchaseController)
+
 
 
 

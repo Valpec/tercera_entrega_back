@@ -103,28 +103,25 @@ const getPurchaseController = async(req,res) => {
         let userEmail = req.user.email
        
         let prodsInCart = await cartService.listCartProds(cid)
+        console.log('el prod en cart', prodsInCart)
         if(prodsInCart.products.length === 0){
             console.warn(`No se puede concretar la compran, no existen productos en el carrito`);
             return res.status(204).send({ error: "Not found", message: `No existen productos en el carrito` });
         }
-        let inStock = []
-        let notInStock = []
         let sumProds = 0
 
         for (let e of prodsInCart.products) {
             if(e.product.stock >= e.quantity){
-                inStock.push(e)
                 let newStock = e.product.stock - e.quantity
-                await productService.updateProductStock(e.product._id, newStock)
                 sumProds += e.quantity * e.product.price
+                let prodId = e.product._id.toString()
 
-            }else{
-                notInStock.push(e)
+                await productService.updateProductStock(e.product._id, newStock)
+                await cartService.deleteProdFromCart(cid, prodId )
             }
         };
         let newTicket = await ticketService.createTicket(sumProds, userEmail)
-        let data = {newTicket: newTicket, notInStock: notInStock}
-  
+        let data = {newTicket: newTicket, notInStock: prodsInCart.products}
         res.render('purchase', data)
 
     }catch(error){
