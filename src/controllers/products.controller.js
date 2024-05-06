@@ -1,5 +1,6 @@
+// import ProductService from '../services/dao/fileSystem/ProductManager.js'
+// let productService = new ProductService()
 
-// import { productService } from '../services/dao/factory.js'
 import { productService } from "../services/service.js";
 
 

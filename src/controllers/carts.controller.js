@@ -1,5 +1,6 @@
+// import CartService from '../services/dao/fileSystem/CartManager.js'
+// let cartService = new CartService()
 
-// import { cartService } from '../services/dao/factory.js'
 import { cartService, productService, ticketService } from "../services/service.js";
 
 const postCartController = async(req, res) => {
